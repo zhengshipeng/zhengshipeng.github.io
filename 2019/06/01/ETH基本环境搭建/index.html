@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ETH,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ETH基本环境搭建分享所有工具1、go-ethereum：以太坊Go语言版本的源码（也叫Client，注意区块链网络里没有服务端）。 2、Geth：go-ethereum的命令行终端，能调用go-ethereum的API。可以通过多种方式获得，比如用homebrew安装、下载可执行二进制文件、通过go install/make geth go-ethereum源码等方式得到geth。 3、Ethe">
+<meta name="keywords" content="ETH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ETH基本环境搭建">
+<meta property="og:url" content="http://yoursite.com/2019/06/01/ETH基本环境搭建/index.html">
+<meta property="og:site_name" content="技术随笔">
+<meta property="og:description" content="ETH基本环境搭建分享所有工具1、go-ethereum：以太坊Go语言版本的源码（也叫Client，注意区块链网络里没有服务端）。 2、Geth：go-ethereum的命令行终端，能调用go-ethereum的API。可以通过多种方式获得，比如用homebrew安装、下载可执行二进制文件、通过go install/make geth go-ethereum源码等方式得到geth。 3、Ethe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-31T10:12:44.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ETH基本环境搭建">
+<meta name="twitter:description" content="ETH基本环境搭建分享所有工具1、go-ethereum：以太坊Go语言版本的源码（也叫Client，注意区块链网络里没有服务端）。 2、Geth：go-ethereum的命令行终端，能调用go-ethereum的API。可以通过多种方式获得，比如用homebrew安装、下载可执行二进制文件、通过go install/make geth go-ethereum源码等方式得到geth。 3、Ethe">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/01/ETH基本环境搭建/">
+
+
+
+
+
+  <title>ETH基本环境搭建 | 技术随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">技术随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">杂七杂八</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/ETH基本环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhengshipeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ETH基本环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-01T02:00:23+08:00">
+                2019-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/区块链/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ETH基本环境搭建分享"><a href="#ETH基本环境搭建分享" class="headerlink" title="ETH基本环境搭建分享"></a>ETH基本环境搭建分享</h1><h3 id="所有工具"><a href="#所有工具" class="headerlink" title="所有工具"></a>所有工具</h3><p>1、go-ethereum：以太坊Go语言版本的源码（也叫Client，注意区块链网络里没有服务端）。</p>
+<p>2、Geth：go-ethereum的命令行终端，能调用go-ethereum的API。可以通过多种方式获得，比如用homebrew安装、下载可执行二进制文件、通过go install/make geth go-ethereum源码等方式得到geth。</p>
+<p>3、Ethereum Wallet：可视化的Geth（以太坊钱包），可以管理账户、发布合约。</p>
+<p>4、Mist：以太坊浏览器，因为它连接的是以太坊区块链网络，可以通过mist访问DApp，当然也能访问管理Ethereum Wallet。</p>
+<p>5、Solidity：开发智能合约的编程语言，运行在EVM。</p>
+<p>6、Remix：开发智能合约的IDE，基于浏览器。适合新手(版本控制、存储等不便)。(Mix停止更新，browser-solidity也停止更新，都使用Remix了)</p>
+<p>7、Truffle和Embark是开发DApps的两个常用框架，可以写代码-编译-部署-测试-打包DApp（注意不仅仅可以开发智能合约）。</p>
+<p>8、web3：以太坊基金会为DApp开发的标准RPC访问接口，也就是以太坊区块链网络与链外网络的连接桥梁。</p>
+<a id="more"></a>
+
+
+
+<h3 id="安装geth"><a href="#安装geth" class="headerlink" title="安装geth"></a>安装geth</h3><p>（1）下载地址：<a href="https://ethfans.org/wikis/Ethereum-Geth-Mirror" target="_blank" rel="noopener">https://ethfans.org/wikis/Ethereum-Geth-Mirror</a></p>
+<p>（2）创建blockchain文件夹，将上一步安装的geth.exe考入，并创建创世区块的初始化文件genesis.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"config"</span>: &#123;</span><br><span class="line">          "chainId": 15,//区块链的ID，与geth命令中的--networkid参数保持一致</span><br><span class="line">          "homesteadBlock": 0,//homestead硬分叉区块高度</span><br><span class="line">          "eip155Block": 0,//EIP 155硬分叉高度</span><br><span class="line">          "eip158Block": 0//EIP 158 硬分叉高度</span><br><span class="line">      &#125;,</span><br><span class="line">      "coinbase" : "0x0000000000000000000000000000000000000000",//矿工账号，第一个区块挖出后将给这个矿工账号发送奖励的eth</span><br><span class="line">      "difficulty" : "0x40000",//难度值，越大越难</span><br><span class="line">      "extraData" : "",//附加信息</span><br><span class="line">      "gasLimit" : "0xffffffff",//gas的消耗总量限制</span><br><span class="line">      "nonce" : "0x0000000000000042",//64位随机数</span><br><span class="line">      "mixhash" : "0x0000000000000000000000000000000000000000000000000000000000000000",//与noce配合用于挖矿，由上一个区块的部分生成的hash</span><br><span class="line">      "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",//上一个区块的hash值</span><br><span class="line">      "timestamp" : "0x00",//时间戳</span><br><span class="line">      "alloc": &#123; &#125;//预设账号以及账号的eth数量</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">chainId</td>
+<td>指定了独立的区块链网络 ID。网络 ID 在连接到其他节点的时候会用到，以太坊公网的网络 ID 是 1，为了不与公有链网络冲突，运行私有链节点的时候要指定自己的网络 ID。不同 ID 网络的节点无法相互连接</td>
+</tr>
+<tr>
+<td align="center">HomesteadBlock</td>
+<td>当设置为0表示使用Homestead发布该链</td>
+</tr>
+<tr>
+<td align="center">nonce</td>
+<td>nonce就是一个64位随机数，用于挖矿，注意它和mixhash的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。</td>
+</tr>
+<tr>
+<td align="center">mixhash</td>
+<td>与nonce配合用于挖矿，由上一个区块的一部分生成的hash。注意它和nonce的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。</td>
+</tr>
+<tr>
+<td align="center">difficulty</td>
+<td>设置设置当前区块的难度，越大挖矿就越难。</td>
+</tr>
+<tr>
+<td align="center">alloc</td>
+<td>用来预置账号以及账号的以太币数量</td>
+</tr>
+<tr>
+<td align="center">coinbase</td>
+<td>矿工账号</td>
+</tr>
+<tr>
+<td align="center">timestamp</td>
+<td>设置创世块的时间戳</td>
+</tr>
+<tr>
+<td align="center">parentHash</td>
+<td>上一个区块的hash，创世块就为0</td>
+</tr>
+<tr>
+<td align="center">extraData</td>
+<td>附加信息</td>
+</tr>
+<tr>
+<td align="center">gasLimit</td>
+<td>该值设置对GAS的消耗总量限制，用来限制区块能包含的交易信息总和</td>
+</tr>
+</tbody></table>
+<p>（3）创世信息初始化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth -datadir <span class="string">"F:\blockchain\chain"</span> init genesis.json</span><br></pre></td></tr></table></figure>
+
+<p>（4）第一种启动方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">geth -datadir <span class="string">"F:\blockchain\chain"</span> <span class="built_in">console</span></span><br><span class="line">或者geth -datadir <span class="string">"F:\blockchain\chain"</span> <span class="built_in">console</span> <span class="number">2</span>&gt;&gt;geth.log<span class="comment">//打开geth控制台</span></span><br></pre></td></tr></table></figure>
+
+<p>创建账户</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">personal.newAccount(<span class="string">'123abc'</span>)<span class="comment">//创建用户，123abc为密码，必须创建一个用户才能挖矿。</span></span><br><span class="line">eth.accounts<span class="comment">//查看账户</span></span><br></pre></td></tr></table></figure>
+
+<p>挖矿</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">miner.start(<span class="number">1</span>)<span class="comment">//挖矿，一个线程</span></span><br><span class="line">miner.stop()<span class="comment">//停止挖矿</span></span><br><span class="line">eth.getBalance(eth.accounts[<span class="number">0</span>])<span class="comment">//查看挖到的eth，单位默认wei（表格转换关系）</span></span><br><span class="line">web3.fromWei(eth.getBalance(eth.accounts[<span class="number">0</span>]),<span class="string">'ether'</span>)<span class="comment">//转化为ETH</span></span><br><span class="line">miner.setEtherbase<span class="comment">//修改挖矿所得账户，默认第一个账户</span></span><br></pre></td></tr></table></figure>
+
+<p>转账</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">acc0 = eth.accounts[<span class="number">0</span>]</span><br><span class="line">acc1 = eth.accounts[<span class="number">1</span>]</span><br><span class="line">amount = web3.toWei(<span class="number">1000</span>)</span><br><span class="line">personal.unlockAccount(acc0)<span class="comment">//转账前必须解锁</span></span><br><span class="line">eth.sendTransaction(&#123;<span class="attr">from</span>: acc0, <span class="attr">to</span>: acc1, <span class="attr">value</span>: amount&#125;)<span class="comment">//转账</span></span><br></pre></td></tr></table></figure>
+
+<p>（5）第二种方式启动</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">geth </span><br><span class="line">–rpc <span class="comment">//启动rpc通信</span></span><br><span class="line">–rpcaddr “<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>” <span class="comment">//连接rpc的地址 </span></span><br><span class="line">–rpcport “<span class="number">8101</span>”  <span class="comment">//连接rpc的端口</span></span><br><span class="line">–port “<span class="number">30301</span>” <span class="comment">//网络监听端口</span></span><br><span class="line">–rpcapi “eth,net,web3,personal” <span class="comment">//设置允许连接rpc的客户端 </span></span><br><span class="line">–networkid <span class="number">2017</span> <span class="comment">//设置当前区块链的网络ID</span></span><br><span class="line">–datadir “F:\blockchain\chain”</span><br><span class="line">-rpccorsdomain “*” <span class="comment">//指定什么url能连接到你的节点执行rpc定制端任务，如果输入的是“*”，则任何url都可以连接到你的rpc实例。</span></span><br><span class="line">–mine <span class="comment">//挖矿</span></span><br><span class="line">–minerthreads <span class="number">2</span> <span class="comment">//2线程</span></span><br><span class="line">-nodiscover <span class="comment">//关闭节点自动发现</span></span><br><span class="line"><span class="built_in">console</span> <span class="number">2</span>&gt;&gt;geth.log</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>identity</td>
+<td>区块链的标示，用于标示目前网络的名字</td>
+</tr>
+<tr>
+<td>init</td>
+<td>指定创世块文件的位置，并创建创世块</td>
+</tr>
+<tr>
+<td>datadir</td>
+<td>当前区块数据存放的位置</td>
+</tr>
+<tr>
+<td>port</td>
+<td>网络监听端口，默认30303</td>
+</tr>
+<tr>
+<td>rpc</td>
+<td>启动rpc通信</td>
+</tr>
+<tr>
+<td>rpcapi</td>
+<td>设置允许连接rpc的客户端，一般为db,eth,net,web3</td>
+</tr>
+<tr>
+<td>rpccorsdomain</td>
+<td>指定什么url能连接到你的节点执行rpc定制端任务，如果输入的是“*”，则任何url都可以连接到你的rpc实例</td>
+</tr>
+<tr>
+<td>rpcaddr</td>
+<td>连接rpc的地址，默认为localhost</td>
+</tr>
+<tr>
+<td>rpcport</td>
+<td>连接rpc的端口，默认为8545</td>
+</tr>
+<tr>
+<td>networkid</td>
+<td>设置当前区块链的网络ID，用于区分不同的网络，是一个数字</td>
+</tr>
+<tr>
+<td>console</td>
+<td>启动命令行模式，可以在Geth中执行命令</td>
+</tr>
+</tbody></table>
+<p>下载以太坊钱包：<a href="https://ethfans.org/wikis/Ethereum-Wallet-Mirror" target="_blank" rel="noopener">https://ethfans.org/wikis/Ethereum-Wallet-Mirror</a>  解压安装<br>运行Ethereum-Wallet.exe，页面右上角出现PRIVATE-NET 则连接上私有节点，进入钱包</p>
+<h3 id="安装智能合约编辑调试工具remix-ide"><a href="#安装智能合约编辑调试工具remix-ide" class="headerlink" title="安装智能合约编辑调试工具remix-ide"></a>安装智能合约编辑调试工具remix-ide</h3><p>（1）在线版：<a href="https://remix.ethereum.org" target="_blank" rel="noopener">https://remix.ethereum.org</a></p>
+<p>（2）本地安装</p>
+<p>windows环境</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>下载windows包管理工具chocolatey，类似npm。（choco install wget，choco install -y python2 gtk-runtime microsoft-build-tools libjpeg-turbo）</span><br><span class="line"><span class="number">2.</span>下载安装Visual C++ <span class="number">2015</span> Build Tools（微软下载中心没找到..，其他版本不能成功，指定了版本version=<span class="number">14</span>，<span class="number">14</span>对应vs2015）</span><br><span class="line"><span class="number">3.</span>查看磁盘是否存在：Microsoft.Cpp.Default.props（十分重要，必须拥有）</span><br><span class="line"><span class="number">4.</span>设置环境变量：</span><br><span class="line">      <span class="keyword">set</span> VCTargetsPath=C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\v140</span><br><span class="line">      <span class="keyword">set</span> GYP_MSVS_VERSION=2015</span><br><span class="line">      <span class="keyword">set</span> GYP_MSVS_OVERRIDE_PATH=C:\Program Files (x86)\Microsoft Visual Studio 14.0</span><br></pre></td></tr></table></figure>
+
+<p>两种方式安装remix-ide</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>)remix-ide已经集成为node的模块</span><br><span class="line">      安装：npm install remix-ide -g</span><br><span class="line">      使用：remix-ide</span><br><span class="line">      访问：<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>：<span class="number">8080</span></span><br><span class="line">      </span><br><span class="line">(<span class="number">2</span>)源码</span><br><span class="line">      git clone https:<span class="comment">//github.com/ethereum/remix-ide.git</span></span><br><span class="line">      cd remix-ide</span><br><span class="line">      npm install</span><br><span class="line">      npm run setupremix</span><br><span class="line">      npm start</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>单位</th>
+<th>wei值</th>
+<th>Wei</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wei</td>
+<td>1</td>
+<td>1 wei</td>
+</tr>
+<tr>
+<td>Kwei (babbage)</td>
+<td>1e3 wei</td>
+<td>1,000</td>
+</tr>
+<tr>
+<td>Mwei (lovelace)</td>
+<td>1e6 wei</td>
+<td>1,000,000</td>
+</tr>
+<tr>
+<td>Gwei (shannon)</td>
+<td>1e9 wei</td>
+<td>1,000,000,000</td>
+</tr>
+<tr>
+<td>microether (szabo)</td>
+<td>1e12 wei</td>
+<td>1,000,000,000,000</td>
+</tr>
+<tr>
+<td>milliether (finney)</td>
+<td>1e15 wei</td>
+<td>1,000,000,000,000,000</td>
+</tr>
+<tr>
+<td>ether</td>
+<td>1e18 wei</td>
+<td>1,000,000,000,000,000,000</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ETH/" rel="tag"># ETH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/01/RPC-Thrift-基本原理/" rel="next" title="RPC,Thrift 基本原理">
+                <i class="fa fa-chevron-left"></i> RPC,Thrift 基本原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zhengshipeng</p>
+              <p class="site-description motion-element" itemprop="description">技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhengshipeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jfz.com/" title="金斧子" target="_blank">金斧子</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ETH基本环境搭建分享"><span class="nav-number">1.</span> <span class="nav-text">ETH基本环境搭建分享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所有工具"><span class="nav-number">1.0.1.</span> <span class="nav-text">所有工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装geth"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装geth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装智能合约编辑调试工具remix-ide"><span class="nav-number">1.0.3.</span> <span class="nav-text">安装智能合约编辑调试工具remix-ide</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengshipeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
