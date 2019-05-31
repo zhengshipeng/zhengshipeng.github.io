@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="thrift,">
+  <meta name="keywords" content="PHP,">
 
 
 
@@ -79,22 +79,18 @@
 
 
 
-<meta name="description" content="简介RPC（Remote Procedure Call，远程过程调用），计算机通信协议。RPC 框架屏蔽了底层传输方（TCP/UDP），序列化，反序列化等内容，使用框架只需要知道被调用者的地址和接口即可，无需额外为这些底层内部编程。 目前流行的RPC 框架：Thrift    gRPC    Avro">
-<meta name="keywords" content="thrift">
+<meta name="description" content="编译安装php7.1+常用的三个扩展：redis，memcached，mongodb">
+<meta name="keywords" content="PHP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RPC,Thrift 基本原理">
-<meta property="og:url" content="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/index.html">
+<meta property="og:title" content="编译安装php7.1+三个扩展(redis，memcached，mongodb)">
+<meta property="og:url" content="http://yoursite.com/2019/05/31/编译安装php7-1-三个扩展-redis，memcached，mongodb/index.html">
 <meta property="og:site_name" content="技术随笔">
-<meta property="og:description" content="简介RPC（Remote Procedure Call，远程过程调用），计算机通信协议。RPC 框架屏蔽了底层传输方（TCP/UDP），序列化，反序列化等内容，使用框架只需要知道被调用者的地址和接口即可，无需额外为这些底层内部编程。 目前流行的RPC 框架：Thrift    gRPC    Avro">
+<meta property="og:description" content="编译安装php7.1+常用的三个扩展：redis，memcached，mongodb">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/20170207141803075.png">
-<meta property="og:image" content="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/20170207141820029.png">
-<meta property="og:image" content="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/20150116173311796.jpg">
-<meta property="og:updated_time" content="2019-05-31T09:19:06.782Z">
+<meta property="og:updated_time" content="2019-05-31T11:26:21.569Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RPC,Thrift 基本原理">
-<meta name="twitter:description" content="简介RPC（Remote Procedure Call，远程过程调用），计算机通信协议。RPC 框架屏蔽了底层传输方（TCP/UDP），序列化，反序列化等内容，使用框架只需要知道被调用者的地址和接口即可，无需额外为这些底层内部编程。 目前流行的RPC 框架：Thrift    gRPC    Avro">
-<meta name="twitter:image" content="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/20170207141803075.png">
+<meta name="twitter:title" content="编译安装php7.1+三个扩展(redis，memcached，mongodb)">
+<meta name="twitter:description" content="编译安装php7.1+常用的三个扩展：redis，memcached，mongodb">
 
 
 
@@ -124,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/31/编译安装php7-1-三个扩展-redis，memcached，mongodb/">
 
 
 
 
 
-  <title>RPC,Thrift 基本原理 | 技术随笔</title>
+  <title>编译安装php7.1+三个扩展(redis，memcached，mongodb) | 技术随笔</title>
   
 
 
@@ -257,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/RPC-Thrift-基本原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/编译安装php7-1-三个扩展-redis，memcached，mongodb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhengshipeng">
@@ -274,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">RPC,Thrift 基本原理</h1>
+          <h1 class="post-title" itemprop="name headline">编译安装php7.1+三个扩展(redis，memcached，mongodb)</h1>
         
 
         <div class="post-meta">
@@ -286,7 +282,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-01T01:11:40+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-31T19:22:26+08:00">
                 2019-05-31
               </time>
             
@@ -309,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/RPC/" itemprop="url" rel="index">
-                    <span itemprop="name">RPC</span>
+                  <a href="/categories/开发环境/" itemprop="url" rel="index">
+                    <span itemprop="name">开发环境</span>
                   </a>
                 </span>
 
@@ -346,31 +342,28 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>RPC（Remote Procedure Call，远程过程调用），计算机通信协议。RPC 框架屏蔽了底层传输方（TCP/UDP），序列化，反序列化等内容，使用框架只需要知道被调用者的地址和接口即可，无需额外为这些底层内部编程。</p>
-<p>目前流行的RPC 框架：Thrift    gRPC    Avro</p>
+        <blockquote class="blockquote-center"><p>编译安装php7.1+常用的三个扩展：redis，memcached，mongodb </p>
+</blockquote>
+
 <a id="more"></a>
 
-<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><img src="/2019/06/01/RPC-Thrift-基本原理/20170207141803075.png">
+<h3 id="备份php7-0"><a href="#备份php7-0" class="headerlink" title="备份php7.0"></a>备份php7.0</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cp -a /usr/local/php  /usr/local/php70</span><br></pre></td></tr></table></figure>
 
-<p>（1）客户过程以正常方式调用客户桩（client stub，一段代码）；<br>（2）客户桩生成一个消息，然后调用本地操作系统；<br>（3）客户端操作系统将消息发送给远程操作系统；<br>（4）远程操作系统将消息交给服务器桩（server stub，一段代码）；<br>（5）服务器桩将参数提取出来，然后调用服务器过程；<br>（6）服务器执行要求的操作，操作完成后将结果返回给服务器桩；<br>（7）服务器桩将结果打包成一个消息，然后调用本地操作系统；<br>（8）服务器操作系统将含有结果的消息发送回客户端操作系统；<br>（9）客户端操作系统将消息交给客户桩；<br>（10）客户桩将结果从从消息中提取出来，返回给调用它的客户过程。 </p>
-<h2 id="Thrift架构"><a href="#Thrift架构" class="headerlink" title="Thrift架构"></a>Thrift架构</h2><img src="/2019/06/01/RPC-Thrift-基本原理/20170207141820029.png">
-<img src="/2019/06/01/RPC-Thrift-基本原理/20150116173311796.jpg">
-<h4 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h4><p>（1）同步客户端类Client和同步接口Iface，Client类继承自TServiceClient，并实现了同步接口Iface；Iface就是根据thrift文件中所定义的接口函数所生成；Client类是在开发Thrift的客户端程序时使用，Client类是Iface的客户端存根实现， Iface在开发Thrift服务器的时候要使用，Thrift的服务器端程序要实现接口Iface</p>
-<p>（2）Processor类，该类主要是开发Thrift服务器程序的时候使用，该类内部定义了一个map，它保存了所有函数名到函数对象的映射，一旦Thrift接到一个函数调用请求，就从该map中根据函数名字找到该函数的函数对象，然后执行它；</p>
-<p>（3）参数类，为每个接口函数定义一个参数类，例如：为接口getInt产生一个参数类：getInt_args，一般情况下，接口函数参数类的命名方式为：接口函数名<em>_args;</em></p>
-<p>（4）返回值类，每个接口函数定义了一个返回值类，例如：为接口getInt产生一个返回值类：getInt_result，一般情况下，接口函数返回值类的命名方式为：接口函数名_result;</p>
-<h4 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h4><p>（1）     将客户端程序调用的函数名和参数传递给协议层（TProtocol），协议层将函数名和参数按照协议格式进行封装，然后封装的结果交给下层的传输层。此处需要注意：要与Thrift服务器程序所使用的协议类型一样，否则Thrift服务器程序便无法在其协议层进行数据解析；</p>
-<p>（2）     传输层（TTransport）将协议层传递过来的数据进行处理，例如传输层的实现类TFramedTransport就是将数据封装成帧的形式，即“数据长度+数据内容”，然后将处理之后的数据通过网络发送给Thrift服务器；此处也需要注意：要与Thrift服务器程序所采用的传输层的实现类一致，否则Thrift的传输层也无法将数据进行逆向的处理；</p>
-<p>（3）     Thrift服务器通过传输层（TTransport）接收网络上传输过来的调用请求数据，然后将接收到的数据进行逆向的处理，例如传输层的实现类TFramedTransport就是将“数据长度+数据内容”形式的网络数据，转成只有数据内容的形式，然后再交付给Thrift服务器的协议类（TProtocol）；</p>
-<p>（4）     Thrift服务端的协议类（TProtocol）将传输层处理之后的数据按照协议进行解封装，并将解封装之后的数据交个Processor类进行处理；</p>
-<p>（5）     Thrift服务端的Processor类根据协议层（TProtocol）解析的结果，按照函数名找到函数名所对应的函数对象；</p>
-<p>（6）     Thrift服务端使用传过来的参数调用这个找到的函数对象；</p>
-<p>（7）     Thrift服务端将函数对象执行的结果交给协议层；</p>
-<p>（8）     Thrift服务器端的协议层将函数的执行结果进行协议封装；</p>
-<p>（9）     Thrift服务器端的传输层将协议层封装的结果进行处理，例如封装成帧，然后发送给Thrift客户端程序；</p>
-<p>（10）    Thrift客户端程序的传输层将收到的网络结果进行逆向处理，得到实际的协议数据；</p>
-<p>（11）    Thrift客户端的协议层将数据按照协议格式进行解封装，然后得到具体的函数执行结果，并将其交付给调用函数；</p>
+<h3 id="查看configure"><a href="#查看configure" class="headerlink" title="查看configure"></a>查看configure</h3><blockquote>
+<p>如果是php7.0升级php7.1 可通过以下方式查看之前的configure，以保持一致</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看： php -i | grep configure</span><br><span class="line">获取： php -i | grep configure | sed -e "s/Configure Command =&gt; //; s/' //g"</span><br><span class="line">亦可以通过phpinfo()查看</span><br></pre></td></tr></table></figure>
 
+<h3 id="下载php7-1-0源码"><a href="#下载php7-1-0源码" class="headerlink" title="下载php7.1.0源码"></a>下载php7.1.0源码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line"></span><br><span class="line">wget -c http://cn2.php.net/get/php-7.1.0.tar.gz/from/this/mirror -O php-7.1.0.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf php-7.1.0.tar.gz</span><br><span class="line"></span><br><span class="line">cd php-7.1.0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装php7-1-0"><a href="#安装php7-1-0" class="headerlink" title="安装php7.1.0"></a>安装php7.1.0</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">./configure  --prefix=/usr/local/php --exec-prefix=/usr/local/php --bindir=/usr/local/php/bin --sbindir=/usr/local/php/sbin --includedir=/usr/local/php/include --libdir=/usr/local/php/lib/php --mandir=/usr/local/php/php/man --with-config-file-path=/usr/local/php/etc --with-mhash --with-openssl --with-mcrypt --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-gd --with-iconv --with-zlib --enable-zip --enable-inline-optimization --enable-shared --enable-xml --enable-bcmath --enable-shmop --enable-sysvsem --enable-mbregex --enable-mbstring --enable-ftp --enable-gd-native-ttf --enable-pcntl --enable-sockets --with-xmlrpc --enable-soap --without-pear --with-gettext --enable-session --with-curl --enable-opcache --enable-fpm</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="三个配置文件"><a href="#三个配置文件" class="headerlink" title="三个配置文件"></a>三个配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php.ini (/usr/local/php/etc/php.ini)</span><br><span class="line">php-fpm.conf(/usr/local/php/etc/php-fpm.conf)</span><br><span class="line">www.conf(/usr/local/php/etc/php-fpm.d/www.conf)</span><br><span class="line"></span><br><span class="line">扩展加载，监听端口，响应时间等等配置 </span><br><span class="line"></span><br><span class="line">扩展位置：/usr/local/php7/lib/php/extensions/no-debug-non-zts-20160303</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装memcached-需要安装libmemcached"><a href="#安装memcached-需要安装libmemcached" class="headerlink" title="安装memcached 需要安装libmemcached"></a>安装memcached 需要安装libmemcached</h3><p>(注意开启sasl，不然memcached开启sasl也会无效，导致yii2等框架无法工作)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">php扩展下载地址：http://pecl.php.net</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>php7以上安装libmemcached的版本需要1.0.18及以上</span><br><span class="line">wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz</span><br><span class="line">tar -zxf libmemcached-1.0.18.tar.gz</span><br><span class="line">cd libmemcached-1.0.18</span><br><span class="line">./configure --prefix=/usr/local/webserver/libmemcached --enable-sasl</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="扩展安装"><a href="#扩展安装" class="headerlink" title="扩展安装"></a>扩展安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">memcached</span><br><span class="line"></span><br><span class="line">wget http://pecl.php.net/get/memcached-3.0.0.tgz</span><br><span class="line">tar -zxf  memcached-3.0.0.tgz</span><br><span class="line">cd memcached-3.0.0</span><br><span class="line">/usr/local/php/bin/phpize</span><br><span class="line">./configure --with-libmemcached-dir=/usr/local/webserver/libmemcached --enable-memcached-sasl --with-php-config=/usr/local/webserver/php/bin/php-config</span><br><span class="line">make &amp;&amp; make install </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">redis</span><br><span class="line"></span><br><span class="line">wget http://pecl.php.net/get/redis-3.1.4.tgz</span><br><span class="line">tar -zxf redis-3.1.4.tar</span><br><span class="line">cd redis-3.1.4</span><br><span class="line">/usr/local/php/bin/phpize</span><br><span class="line">./configure --with-php-config=/usr/local/webserver/php/bin/php-config</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mongodb</span><br><span class="line"></span><br><span class="line">wget http://pecl.php.net/get/mongodb-1.3.0.tgz</span><br><span class="line">tar -zxf mongodb-1.3.0</span><br><span class="line">cd mongodb-1.3.0</span><br><span class="line">/usr/local/php/phpize</span><br><span class="line">./configure --with-php-config=/usr/local/webserver/php/bin/php-config</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -387,7 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/thrift/" rel="tag"># thrift</a>
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
           
         </div>
       
@@ -400,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/31/rabbitMQ-PHP示例代码/" rel="next" title="rabbitMQ PHP示例代码">
-                <i class="fa fa-chevron-left"></i> rabbitMQ PHP示例代码
+              <a href="/2019/05/31/搭建PHP-MySQL-Nginx-git-gogs/" rel="next" title="搭建PHP+MySQL+Nginx+git+gogs">
+                <i class="fa fa-chevron-left"></i> 搭建PHP+MySQL+Nginx+git+gogs
               </a>
             
           </div>
@@ -409,10 +402,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/01/ETH基本环境搭建/" rel="prev" title="ETH基本环境搭建">
-                ETH基本环境搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -489,7 +478,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -500,7 +489,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -574,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">2.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thrift架构"><span class="nav-number">3.</span> <span class="nav-text">Thrift架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#核心类"><span class="nav-number">3.0.1.</span> <span class="nav-text">核心类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用过程"><span class="nav-number">3.0.2.</span> <span class="nav-text">调用过程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份php7-0"><span class="nav-number">1.</span> <span class="nav-text">备份php7.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看configure"><span class="nav-number">2.</span> <span class="nav-text">查看configure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载php7-1-0源码"><span class="nav-number">3.</span> <span class="nav-text">下载php7.1.0源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装php7-1-0"><span class="nav-number">4.</span> <span class="nav-text">安装php7.1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个配置文件"><span class="nav-number">5.</span> <span class="nav-text">三个配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装memcached-需要安装libmemcached"><span class="nav-number">6.</span> <span class="nav-text">安装memcached 需要安装libmemcached</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展安装"><span class="nav-number">7.</span> <span class="nav-text">扩展安装</span></a></li></ol></div>
             
 
           </div>
